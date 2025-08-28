@@ -2,17 +2,39 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional,List
 from datetime import datetime
 
-class UserCreate(BaseModel):
+#user schemas
+
+class UserBase(BaseModel):
     email: EmailStr
+
+class UserCreate(UserBase):
     password: str
 
-class UserOut(BaseModel):
+class UserLogin(UserBase):
+    password: str
+
+class UserOut(UserBase):
     id: int
-    email: EmailStr
-    created_at: datetime
 
     class Config:
         orm_mode= True
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    password: Optional[str] = None
+    is_active: Optional[bool] = None
+
+#  Auth Schemas 
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
+    user_id: Optional[int] = None
+
+#resume schemas
 
 class ResumeCreate(BaseModel):
     filename: str
@@ -21,10 +43,13 @@ class ResumeCreate(BaseModel):
 
 class ResumeOut(ResumeCreate):
     id: int
+    score: int
     created_at: datetime
 
     class Config:
         orm_mode = True
+
+#job schemas
 
 class JobCreate(BaseModel):
     title: str
@@ -37,6 +62,8 @@ class JobOut(JobCreate):
 
     class Config:
         orm_mode = True
+
+#score schemas
 
 class ScoreOut(BaseModel):
     id: int

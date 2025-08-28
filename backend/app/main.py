@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from app import models, database
+from app.routers import users
 from fastapi.middleware.cors import CORSMiddleware
 
-app= FastAPI(title="ScoreMyCV")
+models.Base.metadata.create_all(bind=database.engine)
+
+app = FastAPI(title="ScoreMyCV")
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,3 +18,5 @@ app.add_middleware(
 @app.get("/")
 def read_root():
     return {"message": "ScoreMyCV API is live"}
+
+app.include_router(users.router)
