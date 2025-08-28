@@ -17,7 +17,7 @@ class UserOut(UserBase):
     id: int
 
     class Config:
-        orm_mode= True
+        from_attributes = True
 
 class UserUpdate(BaseModel):
     full_name: Optional[str] = None
@@ -47,7 +47,7 @@ class ResumeOut(ResumeCreate):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes  = True
 
 #job schemas
 
@@ -61,7 +61,7 @@ class JobOut(JobCreate):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes  = True
 
 #score schemas
 
@@ -78,4 +78,4 @@ class ScoreOut(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes  = True
