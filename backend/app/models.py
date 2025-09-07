@@ -20,6 +20,7 @@ class Resume(Base):
     filename = Column(String)
     raw_text = Column(Text)
     parsed_json = Column(Text)
+    score = Column(Integer, default=0)
     created_at = Column(DateTime,default=datetime.now(timezone.utc))
 
     owner = relationship("User", back_populates="resumes")

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app import models, database
-from app.routers import users,auth
+from app.routers import users,auth,resumes,jobs
 from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=database.engine)
@@ -21,3 +21,5 @@ def read_root():
 
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(resumes.router)
+app.include_router(jobs.router)
